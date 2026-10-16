@@ -78,14 +78,20 @@
       word-wrap: break-word;
     }
 
+    /* Contenedor flex para colocar os botões lado a lado */
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
     button {
-      width: 100%;
+      flex: 1; /* Faz com que ambos dividam o espaço igualmente */
       border: none;
       border-radius: 14px;
       padding: 17px;
       font-size: 18px;
       font-weight: 700;
-      margin-top: 15px;
       cursor: pointer;
     }
 
@@ -132,13 +138,16 @@
     </div>
   </div>
 
-  <button class="copy" onclick="copyResult()">
-    COPY
-  </button>
+  <!-- Botões agrupados na div flex -->
+  <div class="button-group">
+    <button class="copy" onclick="copyResult()">
+      COPY
+    </button>
 
-  <button class="clear" onclick="clearAmount()">
-    CLEAR
-  </button>
+    <button class="clear" onclick="clearAmount()">
+      CLEAR
+    </button>
+  </div>
 
   <div id="message" class="message"></div>
 
@@ -218,55 +227,4 @@ function convertAmount() {
   let text = "";
 
   if (dollars === 0) {
-    text = "Zero dollars";
-  } else {
-    text = capitalize(numberToWords(dollars)) +
-      (dollars === 1 ? " dollar" : " dollars");
-  }
-
-  // Centavos sem "and"
-  text += " " + String(cents).padStart(2, "0") + "/100";
-
-  result.innerText = text;
-}
-
-function capitalize(text) {
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
-function copyResult() {
-
-  const result = document.getElementById("result").innerText;
-
-  if (
-    result === "Enter an amount above" ||
-    result === "Invalid amount"
-  ) {
-    return;
-  }
-
-  navigator.clipboard.writeText(result);
-
-  document.getElementById("message").innerText = "Copied!";
-
-  setTimeout(() => {
-    document.getElementById("message").innerText = "";
-  }, 1500);
-}
-
-function clearAmount() {
-
-  document.getElementById("amount").value = "";
-
-  document.getElementById("result").innerText =
-    "Enter an amount above";
-
-  document.getElementById("message").innerText = "";
-
-  document.getElementById("amount").focus();
-}
-
-</script>
-
-</body>
-</html>
+    text
